@@ -1,0 +1,63 @@
+body {
+    background-color: #324158;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container.top {
+    flex-direction: row;
+    justify-content: center;
+    height: 45vh;
+    margin-top: 15px;
+}
+
+.flex-container.logo {
+    width: 200px;
+}
+
+.big-letters {
+    font-size: 7rem;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 30px;
+}
+
+.phrase {
+    font-size: 1.8rem;
+    margin-top: 50px;
+    margin-left: 30px;
+}
+
+.san-serif {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.card {
+    flex-direction: column;
+    background-color: #4E9CB5;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 200px;
+}
+
+.border-card {
+    border: 3px dashed white;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+}
+
+.flex-container.announcement {
+    margin-left: 50px;
+    flex-direction: column;
+    height: 45vh;
+}
+
+.bronze {
+    color: #F6C887;
+}
+
+.white {
+    color: white;
+}

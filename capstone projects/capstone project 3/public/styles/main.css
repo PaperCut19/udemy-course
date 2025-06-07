@@ -1,0 +1,34 @@
+body {
+    background-color: #324158;
+}
+
+h1, h2, p, label {
+    color: #4E9CB5;
+}
+
+.card {
+    background-color: #4E9CB5;
+}
+
+.card-title {
+    color: #F6C887;
+}
+
+.card-text {
+    color: white;
+}
+
+input {
+    background-color: #4E9CB5;
+    color:#324158;
+    font-weight: bold;
+    border: 3px solid #F6C887;
+}
+
+input::placeholder {
+    color:#324158;
+}
+
+.view-title {
+    color:#F6C887;
+}

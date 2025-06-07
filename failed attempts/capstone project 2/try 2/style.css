@@ -1,0 +1,206 @@
+body {
+    background-color: #324158;
+}
+
+/* top */
+.big-letters {
+    font-size: 7rem;
+    font-family: 'Times New Roman', Times, serif;
+    color: #F6C887;
+}
+
+.phrase {
+    margin-top: 190px;
+}
+
+.card-body {
+    background-color: #4E9CB5;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container.top {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.flex-container.top .card {
+    min-width: 240px;
+    max-height: 360px;
+}
+
+/* top */
+/* colors and font size */
+.white {
+    color: white;
+}
+
+.bronze {
+    color: #F6C887;
+}
+
+.san-serif {
+    font-family: Futura, Helvetica, Arial;
+}
+
+.large-words {
+    font-size: 1.5rem;
+}
+
+.card-text.large-words {
+    margin-left: 30px;
+    font-size: 1.9rem;
+}
+
+.flex-container.top .card, .flex-container.top .card-body {
+    border-radius: 25px;
+    border: 0px;
+}
+
+.flex-container.top .card-body {
+    padding-top: 0px;
+}
+
+.flex-container.top .card-body .large-words {
+    margin-top: 50px;
+}
+
+.flex-container.top {
+    height: 45vh;
+}
+
+
+/* bottom */
+.flex-container.bottom {
+    height: 45vh;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.card.left {
+    margin-left: 50px;
+    min-width: 300px;
+}
+
+.card.left, .card.left > .card-body {
+    border-radius: 25px;
+    border: 0px;
+}
+
+.card.right {
+    margin-left: 110px;
+    margin-right: 10px;
+    min-width: 750px;
+}
+
+.card.right, .card.right > .card-body {
+    border-radius: 25px;
+    border: 0px;
+}
+
+.card.announcement {
+    border: 0px;
+}
+
+.card.announcement .card-body {
+    padding: 0;
+    padding-top: 10px;
+    
+}
+
+.card.announcement {
+    border: 0px;
+    background-color: #4E9CB5;
+    padding-top: 10px;
+}
+
+.card.left img {
+    width: 100px;
+}
+
+.card.right img {
+    width: 100px;
+    padding: 0;
+}
+
+.card.blog .card-body {
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.card.blog {
+    border: 0px;
+    background-color: #4E9CB5;
+    padding-top: 10px;
+}
+
+.flex-container.blog {
+    flex-direction: column;
+    max-width: 300px
+}
+
+.flex-container.achievement {
+    flex-direction: column;
+    margin-left: 150px
+}
+
+.card.achievement {
+    background-color: #4E9CB5;
+    border: 0px;
+    padding-top: 10px;
+}
+
+.card.achievement .card-body {
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.btn {
+    background-color: #F6C887;
+    color: #324158;
+    font-family: Futura, Helvetica, sans-serif;
+}
+
+@media (max-width: 1200px) {
+    .flex-container {
+        margin: 0px;
+        min-width: 0px;
+    }
+    
+}
+
+@media (max-width: 700px) {
+    .flex-container.bottom {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .flex-container .card-body {
+        max-width: 300px;
+    }
+
+    .card.left {
+        margin: 0px;
+    }
+
+    .card.right {
+        margin: 0px;
+        min-width: 0px;
+    }
+
+    .flex-container.blog-and-achievement {
+        flex-direction: column;
+        align-items: center;
+        max-width: 300px;
+    }
+
+    .flex-container.achievement {
+        margin: 0px;
+        margin-top: 20px;
+    }
+    
+}

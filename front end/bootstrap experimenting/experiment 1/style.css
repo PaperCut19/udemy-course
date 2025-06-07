@@ -1,0 +1,26 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #4E9CB5;
+}
+
+.group-of-cards {
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #324158;
+}
+
+.card .card-body {
+    color: white;
+}
+
+.btn {
+    background-color: #F6C887;
+    color: #324158;
+    font-weight: bold;
+}
