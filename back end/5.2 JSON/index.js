@@ -12,11 +12,27 @@ const recipeJSON =
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var data;
+
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", { recipe: data }); //render the homepage and send it data
 });
 
-app.post("/recipe", (req, res) => {
+app.post("/recipe", (req, res) => { //use a switch statement to figure out what type of taco the user selected
+  switch (req.body.choice) {
+    case "chicken":
+      data = JSON.parse(recipeJSON)[0]; //if the user selects chicken, we'll make the global data variable equal to an object. We created the object using JSON data
+      break;
+    case "beef":
+      data = JSON.parse(recipeJSON)[1];
+      break;
+    case "fish":
+      data = JSON.parse(recipeJSON)[2];
+      break;
+    default:
+      break;
+  }
+  res.redirect("/"); //once we set the data variable equal to an object, we send the user to the homepage. The homepage is designed to render the new data object.
   //Step 3: Write your code here to make this behave like the solution website.
   //Step 4: Add code to views/index.ejs to use the recieved recipe object.
 });
