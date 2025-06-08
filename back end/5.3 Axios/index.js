@@ -38,7 +38,20 @@ app.post("/", async (req, res) => {
   // Pass an error to the index.ejs to tell the user:
   // "No activities that match your criteria."
 
-  res.redirect("/");
+  try {
+    //CRIS/ we'll turn the user's data into variables that we can put inside of the link that we'll use to get the data from the external website
+    var activity = req.body["type"];
+    var participants = req.body["participants"];
+
+    const response = await axios.get(`https://bored-api.appbrewery.com/filter?type=${activity}&participants=${participants}`);
+    const result = response.data;
+    res.render("index.ejs", { data: result[Math.floor(Math.random() * result.length)] }); //CRIS/ using axios, we'll get back an array from the external website. We'll use Math.random to get a random object from that array
+  } catch (error) {
+    console.error("Failed to make request:", error.message);
+    res.render("index.ejs", {
+      error: "no activity that matches your request",
+    });
+  }
 });
 
 app.listen(port, () => {
