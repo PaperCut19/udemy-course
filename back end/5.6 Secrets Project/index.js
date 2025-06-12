@@ -11,3 +11,22 @@
 // secret and the username of the secret.
 
 // 6. Listen on your predefined port and start the server.
+
+import express from "express";
+import axios from "axios";
+
+const app = express();
+const port = 3000;
+
+app.use(express.static("public")); //CRIS/ this allows us to give the browser access to the files inside of the public folder
+
+app.get("/", (req, res) => {
+    res.render("index.ejs", {
+        secret: "secretTest",
+        user: "userTest"
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+})
