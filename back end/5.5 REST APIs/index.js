@@ -61,6 +61,15 @@ app.post("/put-secret", async (req, res) => {
 app.post("/patch-secret", async (req, res) => {
   const searchId = req.body.id;
   // TODO 4: Use axios to PATCH the data from req.body to the secrets api servers.
+
+  const userData = req.body;
+
+  try {
+    const result = await axios.patch(API_URL + "/secrets/" + searchId, userData, config);
+    res.render("index.ejs", { content: JSON.stringify(result.data) });
+  } catch (error) {
+    res.render("index.ejs", { content: error.response.data });
+  }
 });
 
 app.post("/delete-secret", async (req, res) => {
