@@ -18,12 +18,17 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 
+const API_URL = "https://secrets-api.appbrewery.com";
+
 app.use(express.static("public")); //CRIS/ this allows us to give the browser access to the files inside of the public folder
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+
+    const result = await axios.get(API_URL + "/random");
+
     res.render("index.ejs", {
-        secret: "secretTest",
-        user: "userTest"
+        secret: result.data.secret,
+        user: result.data.username
     });
 });
 
