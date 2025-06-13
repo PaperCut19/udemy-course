@@ -24,12 +24,15 @@ app.use(express.static("public")); //CRIS/ this allows us to give the browser ac
 
 app.get("/", async (req, res) => {
 
-    const result = await axios.get(API_URL + "/random");
-
-    res.render("index.ejs", {
-        secret: result.data.secret,
-        user: result.data.username
-    });
+    try {
+        const result = await axios.get(API_URL + "/random");
+        res.render("index.ejs", {
+            secret: result.data.secret,
+            user: result.data.username
+        });
+    } catch (error) {
+        res.status(500).send("Something went wrong");
+    };
 });
 
 app.listen(port, () => {
