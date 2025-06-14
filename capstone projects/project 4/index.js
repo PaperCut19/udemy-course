@@ -7,6 +7,7 @@ const port = 3000;
 const URL = "https://amiiboapi.com/api/amiibo/?id=";
 
 app.use(express.static("public"));
+app.use('/bootstrap', express.static('node_modules/bootstrap/dist'));
 
 app.get("/", (req, res) => {
     res.render("index.ejs");

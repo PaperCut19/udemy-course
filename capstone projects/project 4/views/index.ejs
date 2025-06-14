@@ -4,24 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project 4</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
   </head>
   <body>
-    <h1>Nintendo</h1>
+    <div
+      class="d-flex flex-column justify-content-center align-items-center gap-3"
+    >
+      <h1>Nintendo</h1>
 
-    <form method="post">
-      <button type="submit" formaction="/link">Link</button>
-      <button type="submit" formaction="/zelda">Zelda</button>
-      <button type="submit" formaction="/samus">Samus</button>
-    </form>
+      <form method="post">
+        <button type="submit" formaction="/link">Link</button>
+        <button type="submit" formaction="/zelda">Zelda</button>
+        <button type="submit" formaction="/samus">Samus</button>
+      </form>
 
-    <% if (locals.name) { %>
-    <h2><%= name %></h2>
-    <img src=" <%= image %> " alt="Link" height="400" />
+      <% if (locals.name) { %>
+      <h2><%= name %></h2>
+      <img src=" <%= image %> " alt="Link" height="400" />
 
-    <h4>
-      Information: <br />
-      <%= info %>
-    </h4>
-    <% } %>
+      <h4>
+        Information: <br />
+        <%= info %>
+      </h4>
+      <% } %>
+    </div>
+
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
