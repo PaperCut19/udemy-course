@@ -7,47 +7,56 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
   </head>
   <body>
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ms-2">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <% if (locals.name) { %>
-        <h2 class="text-center text-danger"><%= name %></h2>
-        <img
-          src=" <%= image %> "
-          class="d-block mx-lg-auto img-fluid"
-          alt="amiibo"
-          style="max-height: 400px"
-          loading="lazy"
-        />
-        <% } %>
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold text-danger lh-1 mb-3">
-          Choose your amiibo
-        </h1>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <form method="post">
-            <button
-              type="submit"
-              formaction="/link"
-              class="btn btn-danger btn-lg px-4 me-md-2"
-            >
-              Link
-            </button>
-            <button
-              type="submit"
-              formaction="/zelda"
-              class="btn btn-danger btn-lg px-4 me-md-2"
-            >
-              Zelda
-            </button>
-            <button
-              type="submit"
-              formaction="/samus"
-              class="btn btn-danger btn-lg px-4 me-md-2"
-            >
-              Samus
-            </button>
-          </form>
+    <div class="container">
+      <div
+        class="row d-flex flex-column flex-lg-row justify-content-center align-items-center g-5 py-5 text-center"
+      >
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-danger lh-1 mb-3">
+            Choose your amiibo
+          </h1>
+          <div class="gap-2">
+            <form method="post">
+              <button
+                type="submit"
+                formaction="/link"
+                class="btn btn-danger btn-lg px-4"
+              >
+                Link
+              </button>
+              <button
+                type="submit"
+                formaction="/zelda"
+                class="btn btn-danger btn-lg px-4 ms-2"
+              >
+                Zelda
+              </button>
+              <button
+                type="submit"
+                formaction="/samus"
+                class="btn btn-danger btn-lg px-4 ms-2"
+              >
+                Samus
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <% if (locals.name) { %>
+          <h2 class="text-center text-danger"><%= name %></h2>
+          <img
+            src=" <%= image %> "
+            alt="amiibo"
+            style="max-height: 400px"
+            loading="lazy"
+          />
+          <% } %>
+        </div>
+
+        <div class="col-12">
+          <h2>API (Application Programming Interface) Information:</h2>
+          <p class="text-break"><%= info %></p>
         </div>
       </div>
     </div>
