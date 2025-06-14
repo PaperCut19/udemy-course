@@ -54,10 +54,17 @@
           <% } %>
         </div>
 
+        <% if (locals.description) { %>
+        <div class="col-12">
+          <h2 class="text-danger">Description:</h2>
+          <p class="lead"><%= description %></p>
+        </div>
+
         <div class="col-12">
           <h2>API (Application Programming Interface) Information:</h2>
-          <p class="text-break"><%= info %></p>
+          <p class="text-break"><%= API_info %></p>
         </div>
+        <% } %>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 import express from "express";
 import axios from "axios";
+import { characterDescriptions } from "./descriptions.js"
 
 const app = express();
 const port = 3000;
@@ -24,7 +25,8 @@ app.post("/link", async (req, res) => { //we use async and await to make sure th
         res.render("index.ejs", { //this will generate an html file with the data that we pass it
             name: result.data.amiibo.name,
             image: result.data.amiibo.image,
-            info: JSON.stringify(result.data)
+            API_info: JSON.stringify(result.data),
+            description: characterDescriptions.link
         });
     } catch (error) {
         console.log(error.message);
@@ -43,7 +45,8 @@ app.post("/zelda", async (req, res) => {
         res.render("index.ejs", {
             name: result.data.amiibo.name,
             image: result.data.amiibo.image,
-            info: JSON.stringify(result.data)
+            API_info: JSON.stringify(result.data),
+            description: characterDescriptions.zelda
         });
     } catch (error) {
         console.log(error.message);
@@ -62,7 +65,8 @@ app.post("/samus", async (req, res) => {
         res.render("index.ejs", {
             name: result.data.amiibo.name,
             image: result.data.amiibo.image,
-            info: JSON.stringify(result.data)
+            API_info: JSON.stringify(result.data),
+            description: characterDescriptions.samus
         });
     } catch (error) {
         console.log(error.message);
