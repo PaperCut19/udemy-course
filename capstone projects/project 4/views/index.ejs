@@ -7,5 +7,16 @@
   </head>
   <body>
     <h1>Nintendo</h1>
+
+    <form method="post">
+      <button type="submit" formaction="/link">Link</button>
+      <button type="submit" formaction="/zelda">Zelda</button>
+      <button type="submit" formaction="/samus">Samus</button>
+    </form>
+
+    <% if (locals.name) { %>
+    <h2><%= name %></h2>
+    <img src=" <%= image %> " alt="Link" />
+    <% } %>
   </body>
 </html>
