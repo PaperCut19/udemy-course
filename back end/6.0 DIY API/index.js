@@ -22,12 +22,22 @@ app.get("/jokes/:id", (req, res) => { //CRIS/ express knows that :id means path 
 
 //3. GET a jokes by filtering on the joke type
 app.get("/filter", (req, res) => {
-  const type = req.query.type;
-  const filteredActivities = jokes.filter((joke) => joke.jokeType === type);
+  const type = req.query.type; //CRIS/ when the user sends the request, they can use "type" as a query parameter and this is how we access it
+  const filteredActivities = jokes.filter((joke) => joke.jokeType === type); //CRIS/ we'll take the query parameter from the user and then use it to return an array with objects that have that data
   res.json(filteredActivities);
 })
 
 //4. POST a new joke
+app.post("/jokes", (req, res) => {
+  const newJoke = { //CRIS/ creating a new object based on the information the user gave
+    id: jokes.length + 1,
+    jokeText: req.body.text, //CRIS/ the user's text
+    jokeType: req.body.type //CRIS/ the type of joke the user wanted to create
+  };
+  jokes.push(newJoke); //CRIS/ adds the new joke to the jokes array
+  console.log(jokes.slice(-1)); //CRIS/ use the last item from the jokes array to create a completely new array
+  res.json(newJoke);
+})
 
 //5. PUT a joke
 
