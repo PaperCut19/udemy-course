@@ -8,8 +8,17 @@ const masterKey = "4VGP2DN-6EWM4SJ-N6FGRHV-Z3PR3TT";
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //1. GET a random joke
+app.get("/random", (req, res) => {
+  const randomIndex = Math.floor(Math.random() * jokes.length);
+  res.json(jokes[randomIndex]); //CRIS/ turns a javascript object into stringified json data
+})
 
 //2. GET a specific joke
+app.get("/jokes/:id", (req, res) => { //CRIS/ express knows that :id means path parameter even though it's inside of a string
+  const id = parseInt(req.params.id); //CRIS/ string into a number
+  const foundJoke = jokes.find((joke) => joke.id == id); //CRIS/ this .find method will look for all items inside the array that have the same id value as the one the user requested
+  res.json(foundJoke);
+})
 
 //3. GET a jokes by filtering on the joke type
 
