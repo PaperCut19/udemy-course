@@ -16,11 +16,16 @@ app.get("/random", (req, res) => {
 //2. GET a specific joke
 app.get("/jokes/:id", (req, res) => { //CRIS/ express knows that :id means path parameter even though it's inside of a string
   const id = parseInt(req.params.id); //CRIS/ string into a number
-  const foundJoke = jokes.find((joke) => joke.id == id); //CRIS/ this .find method will look for all items inside the array that have the same id value as the one the user requested
+  const foundJoke = jokes.find((joke) => joke.id === id); //CRIS/ this .find method will look for all items inside the array that have the same id value as the one the user requested
   res.json(foundJoke);
 })
 
 //3. GET a jokes by filtering on the joke type
+app.get("/filter", (req, res) => {
+  const type = req.query.type;
+  const filteredActivities = jokes.filter((joke) => joke.jokeType === type);
+  res.json(filteredActivities);
+})
 
 //4. POST a new joke
 
