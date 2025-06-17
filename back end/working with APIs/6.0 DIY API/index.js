@@ -54,6 +54,18 @@ app.put("/jokes/:id", (req, res) => {
 })
 
 //6. PATCH a joke
+app.patch("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const existingJoke = jokes.find((joke) => joke.id === id); //CRIS/ find the joke that's the same as the user id and return the object
+  const replacementJoke = {
+    id: id,
+    jokeText: req.body.text || existingJoke.jokeText, //CRIS/ if the user did not enter any new text, then use the text from existingJoke
+    jokeType: req.body.type || existingJoke.jokeType //CRIS/ if the user did not enter any new type, then use the type from existingJoke
+  };
+  const searchIndex = jokes.findIndex((joke) => joke.id === id); //CRIS/ find the index of the object that matches the user id
+  jokes[searchIndex] = replacementJoke; //CRIS/ the object in the array that matches the user id will now be equal to the object the user created
+  res.json(replacementJoke);
+})
 
 //7. DELETE Specific joke
 
