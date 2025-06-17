@@ -82,6 +82,17 @@ app.delete("/jokes/:id", (req, res) => {
 })
 
 //8. DELETE All jokes
+app.delete("/all", (req, res) => {
+  const userKey = req.query.key; //CRIS/ get access to the api key that the user sent using a query parameter
+  if (userKey === masterKey) { //CRIS/ compare the user's API key to the master key, if it matches, we make the jokes array empty
+    jokes = [];
+    res.sendStatus(200);
+  } else {
+    res
+      .status(404)
+      .json({ error: `You are not authorised to perform this action.` });
+  }
+})
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
