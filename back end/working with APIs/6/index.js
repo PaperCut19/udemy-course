@@ -42,36 +42,38 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //CHALLENGE 1: GET All posts
 app.get("/posts", (req, res) => {
-  res.json(posts);
+  res.json(posts); //CRIS/ send the user all the posts
 })
 
 //CHALLENGE 2: GET a specific post by id
 app.get("/posts/:id", (req, res) => {
-  const id = req.params.id;
-  const foundPost = posts.find((post) => post.id == id);
+  const id = req.params.id; //CRIS/ get the id the user sent
+  const foundPost = posts.find((post) => post.id == id); //CRIS/ use the id to find the post that matches
 
   res.json(foundPost);
 })
 
 //CHALLENGE 3: POST a new post
 app.post("/posts", (req, res) => {
-  const newId = lastId += 1;
-  const post = {
+  const newId = lastId += 1; //CRIS/ this is increasing the variable that tracks how many posts we have
+  const post = { //CRIS/ create a new post using the user's data
     id: newId,
     title: req.body.title,
     content: req.body.content,
     author: req.body.author,
     date: new Date()
   };
-  posts.push(post);
+  posts.push(post); //CRIS/ add the new post to the array
   res.json(post);
 })
 
 //CHALLENGE 4: PATCH a post when you just want to update one parameter
 app.patch("/posts/:id", (req, res) => {
   const id = req.params.id;
-  const foundPost = posts.find((post) => post.id == id);
+  const foundPost = posts.find((post) => post.id == id); //CRIS/ find the post that matches the id the user sent
 
+  //CRIS/ if there's any key that is compatible with the data that the user sent, then replace the value of the key with the value the user sent
+  //CRIS/ this will affect the data that is inside of one of the posts
   if (req.body.title) {
     foundPost.title = req.body.title;
   }
@@ -90,9 +92,9 @@ app.patch("/posts/:id", (req, res) => {
 //CHALLENGE 5: DELETE a specific post by providing the post id.
 app.delete("/posts/:id", (req, res) => {
   const id = req.params.id;
-  const foundPostIndex = posts.findIndex((post) => post.id == id);
+  const foundPostIndex = posts.findIndex((post) => post.id == id); //CRIS/ find the post that matches the id that the user sent
 
-  if (foundPostIndex > -1) {
+  if (foundPostIndex > -1) { //CRIS/ if a post was found, then remove it from the array
     posts.splice(foundPostIndex, 1);
   }
 
