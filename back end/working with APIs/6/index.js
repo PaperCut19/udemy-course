@@ -50,6 +50,8 @@ app.get("/posts/:id", (req, res) => {
   const id = req.params.id; //CRIS/ get the id the user sent
   const foundPost = posts.find((post) => post.id == id); //CRIS/ use the id to find the post that matches
 
+  if (!foundPost) return res.status(404).json({ message: "Post not found" }); //CRIS/ if there's no post, return an error message
+
   res.json(foundPost);
 })
 
@@ -64,13 +66,14 @@ app.post("/posts", (req, res) => {
     date: new Date()
   };
   posts.push(post); //CRIS/ add the new post to the array
-  res.json(post);
+  res.status(201).json(post); //CRIS/ while sending the json data, also tell the user's computer that a new resource was successfully created by using 201
 })
 
 //CHALLENGE 4: PATCH a post when you just want to update one parameter
 app.patch("/posts/:id", (req, res) => {
   const id = req.params.id;
   const foundPost = posts.find((post) => post.id == id); //CRIS/ find the post that matches the id the user sent
+  if (!foundPost) return res.status(404).json({ message: "Post not found" }); //CRIS/ if no post is found, send a 404 error and a message
 
   //CRIS/ if there's any key that is compatible with the data that the user sent, then replace the value of the key with the value the user sent
   //CRIS/ this will affect the data that is inside of one of the posts
@@ -93,6 +96,7 @@ app.patch("/posts/:id", (req, res) => {
 app.delete("/posts/:id", (req, res) => {
   const id = req.params.id;
   const foundPostIndex = posts.findIndex((post) => post.id == id); //CRIS/ find the post that matches the id that the user sent
+  if (index === -1) return res.status(404).json({ message: "Post not found" }); //CRIS/ if no post was found, send a 404 error and a message
 
   if (foundPostIndex > -1) { //CRIS/ if a post was found, then remove it from the array
     posts.splice(foundPostIndex, 1);
