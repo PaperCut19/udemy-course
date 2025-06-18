@@ -96,7 +96,7 @@ app.patch("/posts/:id", (req, res) => {
 app.delete("/posts/:id", (req, res) => {
   const id = req.params.id;
   const foundPostIndex = posts.findIndex((post) => post.id == id); //CRIS/ find the post that matches the id that the user sent
-  if (index === -1) return res.status(404).json({ message: "Post not found" }); //CRIS/ if no post was found, send a 404 error and a message
+  if (foundPostIndex === -1) return res.status(404).json({ message: "Post not found" }); //CRIS/ if no post was found, send a 404 error and a message
 
   if (foundPostIndex > -1) { //CRIS/ if a post was found, then remove it from the array
     posts.splice(foundPostIndex, 1);
