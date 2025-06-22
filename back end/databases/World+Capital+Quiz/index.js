@@ -1,14 +1,37 @@
 import express from "express";
 import bodyParser from "body-parser";
+import pg from "pg";
 
 const app = express();
 const port = 3000;
 
-let quiz = [
-  { country: "France", capital: "Paris" },
-  { country: "United Kingdom", capital: "London" },
-  { country: "United States of America", capital: "New York" },
-];
+const db = new pg.Client({ //CRIS/ this is basically the configuration that our app will need when communicating with the server
+  user: "postgres",
+  host: "localhost", //CRIS/ where the database is running, in this case, it means our own computer
+  database: "world",
+  password: "gyccof-rajwy0-pyccAx",
+  port: 5432
+});
+
+db.connect(); //CRIS/ creates the connection to the database server
+
+// let quiz = [
+//   { country: "France", capital: "Paris" },
+//   { country: "United Kingdom", capital: "London" },
+//   { country: "United States of America", capital: "New York" },
+// ];
+
+let quiz = [];
+
+db.query("SELECT * FROM capitals", (err, res) => { //CRIS/ we'll use SQL (structured data language) inside of the query method to get data from the database
+  if (err) {
+    console.log("Error executing query", err.stack);
+  } else {
+    quiz = res.rows;
+  }
+
+  db.end(); //CRIS/ after we're done getting the data, we'll disconnect from the database
+});
 
 let totalCorrect = 0;
 
