@@ -1,50 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capital City Quiz</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capital City Quiz</title>
-  <link rel="stylesheet" href="/styles/main.css">
-</head>
+  <body id="app">
+    <!-- CRIS/ this is the form where the user can see the country and submit a capital -->
+    <form class="container" action="/submit" method="post">
+      <div class="horizontal-container">
+        <h3>
+          Total Score:
+          <span id="score">
+            <!-- CRIS/ the total score of the user so far, show 0 if totalScore can't be found -->
+            <%= locals.totalScore ? totalScore : "0" %>
+          </span>
+        </h3>
+      </div>
 
-<body id="app">
-  <form class="container" action="/submit" method="post">
-    <div class="horizontal-container">
-      <h3>
-        Total Score:
-        <span id="score">
-          <%= locals.totalScore ? totalScore : "0" %>
-        </span>
-      </h3>
+      <h1 id="countryName">
+        <!-- CRIS/ country name -->
+        <%=question.country %>
+      </h1>
+      <div class="answer-container">
+        <!-- CRIS/ this is the textbox for the user -->
+        <input
+          type="text"
+          name="answer"
+          id="userInput"
+          placeholder="Enter the capital"
+          autofocus
+          autocomplete="off"
+        />
+      </div>
 
-    </div>
-
-    <h1 id="countryName">
-      <%=question.country %>
-    </h1>
-    <div class="answer-container">
-      <input type="text" name="answer" id="userInput" placeholder="Enter the capital" autofocus autocomplete="off">
-
-    </div>
-    <button type="submit">SUBMIT<% if(locals.wasCorrect){ %>
+      <!-- CRIS/ submit button that will show a checkmark if the user was correct -->
+      <button type="submit">
+        SUBMIT<% if(locals.wasCorrect){ %>
         <span class="checkmark">✔</span>
         <% } else if (locals.wasCorrect===false) { %>
-          <span class="cross" id="error">✖</span>
-          <% } %>
-    </button>
+        <span class="cross" id="error">✖</span>
+        <% } %>
+      </button>
+    </form>
 
-  </form>
-  <script>
-    var wasCorrect = "<%= locals.wasCorrect %>";
-    console.log(wasCorrect)
-    if (wasCorrect === "false") {
-      alert('Game over! Final best score: <%= locals.totalScore %>');
-      document.getElementById("app").innerHTML = '<a href="/" class="restart-button">Restart</a>'
-    }
+    <!-- CRIS/ javascript designed to handle what happens if the user makes a mistake -->
+    <script>
+      var wasCorrect = "<%= locals.wasCorrect %>";
+      console.log(wasCorrect);
+      if (wasCorrect === "false") {
+        alert("Game over! Final best score: <%= locals.totalScore %>");
 
-
-  </script>
-</body>
-
+        //CRIS/ if the user makes a mistake, change the entire page body to only have a restart button
+        document.getElementById("app").innerHTML =
+          '<a href="/" class="restart-button">Restart</a>';
+      }
+    </script>
+  </body>
 </html>
