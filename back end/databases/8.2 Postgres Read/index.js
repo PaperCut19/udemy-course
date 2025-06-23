@@ -59,7 +59,8 @@ app.post("/submit", (req, res) => {
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
   });
-  console.log(currentQuestion);
+
+  console.log(currentQuestion); //CRIS/ we'll console log the answer
 });
 
 function nextQuestion() {

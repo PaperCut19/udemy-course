@@ -65,6 +65,8 @@ app.post("/submit", (req, res) => {
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
   });
+
+  console.log(currentQuestion); //CRIS/ we'll console log the answer
 });
 
 async function nextQuestion() { //CRIS/ creating a function that can pick a random country
