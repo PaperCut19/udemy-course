@@ -1,8 +1,31 @@
 import express from "express";
 import bodyParser from "body-parser";
+import pg from "pg";
 
 const app = express();
 const port = 3000;
+
+let quiz = [];
+
+const db = new pg.Client({
+  user: "postgres",
+  host: "localhost", //CRIS/ where the database is running, in this case, it means our own computer
+  database: "world",
+  password: "gyccof-rajwy0-pyccAx",
+  port: 5432
+});
+
+db.connect();
+
+db.query("SELECT * FROM flags", (err, res) => { //CRIS/ we'll use SQL (structured data language) inside of the query method to get data from the database
+  if (err) {
+    console.log("Error executing query", err.stack);
+  } else {
+    quiz = res.rows;
+  }
+
+  db.end(); //CRIS/ after we're done getting the data, we'll disconnect from the database
+});
 
 let totalCorrect = 0;
 
@@ -24,7 +47,7 @@ app.get("/", (req, res) => {
 app.post("/submit", (req, res) => {
   let answer = req.body.answer.trim();
   let isCorrect = false;
-  if (currentQuestion.capital.toLowerCase() === answer.toLowerCase()) {
+  if (currentQuestion.name.toLowerCase() === answer.toLowerCase()) {
     totalCorrect++;
     console.log(totalCorrect);
     isCorrect = true;
@@ -36,6 +59,7 @@ app.post("/submit", (req, res) => {
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
   });
+  console.log(currentQuestion);
 });
 
 function nextQuestion() {
