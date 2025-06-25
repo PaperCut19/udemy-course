@@ -33,11 +33,32 @@ async function checkVisisted() {
   return countries;
 }
 
-//CRIS/ Home page
+//CRIS/ GET Home page
 app.get("/", async (req, res) => {
   //Write your code here.
   const countries = await checkVisisted();
   res.render("index.ejs", { countries: countries, total: countries.length }); //CRIS/ display the index.ejs file and send it two values, the countries array and the length of the countries array
+});
+
+//CRIS/ INSERT new country
+app.post("/add", async (req, res) => {
+  const input = req.body["country"]; //CRIS/ user answer
+
+  const result = await db.query( //CRIS/ find the row where the user's answer matches, so something like india = india
+    "SELECT country_code FROM countries WHERE country_name = $1",
+    [input]
+  );
+
+  if (result.rows.length !== 0) { //CRIS/ if there was a match, do the code below
+    const data = result.rows[0]; //CRIS/ result.rows[0] is where we can get access to the object that will have the country code
+    const countryCode = data.country_code;
+
+    //CRIS/ insert the country code into the visited_countries table
+    await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [
+      countryCode,
+    ]);
+    res.redirect("/");
+  }
 });
 
 app.listen(port, () => {
