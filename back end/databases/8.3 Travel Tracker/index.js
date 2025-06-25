@@ -44,7 +44,7 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const input = req.body["country"]; //CRIS/ user answer
 
-  const result = await db.query( //CRIS/ find the row where the user's answer matches, so something like india = india
+  const result = await db.query( //CRIS/ find the row where the user's answer matches and return the country code that's inside that row
     "SELECT country_code FROM countries WHERE country_name = $1",
     [input]
   );
