@@ -20,9 +20,8 @@ db.connect(); //CRIS/ connecting to database
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
-  //Write your code here.
-
+//CRIS/ function that looks at visited_countries table and returns that data when called
+async function checkVisisted() {
   const result = await db.query("SELECT country_code FROM visited_countries"); //CRIS/ accessing the country_code column from the visited_countries table
   let countries = [];
   result.rows.forEach((country) => { //CRIS/ for each item in the array, take the country_code property value of the object and put it in the countries array we created
@@ -30,9 +29,15 @@ app.get("/", async (req, res) => {
   });
 
   console.log(result.rows);
-  res.render("index.ejs", { countries: countries, total: countries.length }); //CRIS/ display the index.ejs file and send it two values, the countries array and the length of the countries array
 
-  db.end(); //CRIS/ disconnect from the database
+  return countries;
+}
+
+//CRIS/ Home page
+app.get("/", async (req, res) => {
+  //Write your code here.
+  const countries = await checkVisisted();
+  res.render("index.ejs", { countries: countries, total: countries.length }); //CRIS/ display the index.ejs file and send it two values, the countries array and the length of the countries array
 });
 
 app.listen(port, () => {
