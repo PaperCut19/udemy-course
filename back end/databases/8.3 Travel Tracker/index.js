@@ -46,8 +46,8 @@ app.post("/add", async (req, res) => {
 
   try {
     const result = await db.query( //CRIS/ find the row where the user's answer matches and return the country code that's inside that row
-      "SELECT country_code FROM countries WHERE country_name = $1",
-      [input]);
+      "SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%'",
+      [input.toLowerCase()]);
 
     const data = result.rows[0]; //CRIS/ result.rows[0] is where we can get access to the object that will have the country code
     const countryCode = data.country_code;
