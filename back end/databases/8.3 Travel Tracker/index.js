@@ -77,6 +77,47 @@ app.post("/add", async (req, res) => {
   }
 });
 
+//CRIS/ DELETE country
+app.post("/delete", async (req, res) => {
+
+  const input = req.body["country"]; //CRIS/ user answer
+
+  try {
+    //CRIS/ using SELECT FROM WHERE LIKE to see if the user entered anything that is close enough to a country name in the database
+    const result = await db.query("SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%'",
+      [input.toLowerCase()]
+    );
+
+    //CRIS/ these two lines of code will be to get access to the country code using the object that was returned to the result variable
+    const data = result.rows[0];
+    const country_code = data.country_code;
+
+    try {
+      await db.query("DELETE FROM visited_countries WHERE country_code = $1", //CRIS/ in the visited_countries database, delete the row that matches the country code
+        [country_code]
+      );
+      res.redirect("/");
+    } catch (error) {
+      console.log(error);
+      const countries = await checkVisisted();
+      res.render("index.ejs", {
+        countries: countries,
+        total: countries.length,
+        error: "Try again.",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    const countries = await checkVisisted();
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      error: "Try again.",
+    });
+  }
+
+})
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
