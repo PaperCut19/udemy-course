@@ -118,6 +118,24 @@ app.post("/delete", async (req, res) => {
 
 })
 
+//CRIS/ DELETE ALL
+app.post("/deleteAll", async (req, res) => {
+
+  try {
+    await db.query("DELETE FROM visited_countries");
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    const countries = checkVisisted();
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      error: "Try again"
+    });
+  }
+
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
