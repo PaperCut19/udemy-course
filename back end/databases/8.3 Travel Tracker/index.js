@@ -44,22 +44,39 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const input = req.body["country"]; //CRIS/ user answer
 
-  const result = await db.query( //CRIS/ find the row where the user's answer matches and return the country code that's inside that row
-    "SELECT country_code FROM countries WHERE country_name = $1",
-    [input]
-  );
+  try {
+    const result = await db.query( //CRIS/ find the row where the user's answer matches and return the country code that's inside that row
+      "SELECT country_code FROM countries WHERE country_name = $1",
+      [input]);
 
-  if (result.rows.length !== 0) { //CRIS/ if there was a match, do the code below
     const data = result.rows[0]; //CRIS/ result.rows[0] is where we can get access to the object that will have the country code
     const countryCode = data.country_code;
 
-    //CRIS/ insert the country code into the visited_countries table
-    await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [
-      countryCode,
-    ]);
-    res.redirect("/");
+    try { //CRIS/ if there was a match, then do the code below
+      await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [ //CRIS/ insert the country code into the visited_countries table
+        countryCode,
+      ]);
+      res.redirect("/");
+    } catch (error) { //CRIS/ if the country code was already added, send back the index.ejs file with an error
+      console.log(error);
+      const countries = await checkVisisted();
+      res.render("index.ejs", {
+        countries: countries,
+        total: countries.length,
+        error: "Country has already been added, try again.",
+      });
+    }
+  } catch (error) { //CRIS/ if no country name was found in the database, then send back index.ejs with an error
+    console.log(error);
+    const countries = await checkVisisted();
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      error: "Country name does not exist, try again.",
+    });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
