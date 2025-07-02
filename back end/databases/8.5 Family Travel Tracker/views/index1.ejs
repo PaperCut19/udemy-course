@@ -29,6 +29,20 @@
       <label for="tab">Add Family Member</label>
     </form>
 
+    <!-- CRIS/ create a text input and a submit button for adding new countries to the current user -->
+    <form action="/add" method="post">
+      <!-- CRIS/ name attribute will be the key for the input -->
+      <input
+        type="text"
+        name="country"
+        autofocus
+        placeholder=" <%= locals.error ? error : 'Enter country name' %> "
+      />
+
+      <!-- CRIS/ this is the submit button -->
+      <button type="submit" style="background-color: <%= color %>">Add</button>
+    </form>
+
     <section class="ag-canvas">
       <svg
         class="ag-canvas_svg"
