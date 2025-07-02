@@ -111,15 +111,15 @@ country_code CHAR(2) NOT NULL,
 user_id INTEGER REFERENCES users(id)
 );
 
--- CRIS/ add data to users table
+-- CRIS/ add data to users table --
 INSERT INTO users (name, color)
 VALUES ('Angela', 'teal'), ('Jack', 'powderblue');
 
--- CRIS/ add data to visited_countries table 
+-- CRIS/ add data to visited_countries table --
 INSERT INTO visited_countries (country_code, user_id)
 VALUES ('FR', 1), ('GB', 1), ('CA', 2), ('FR', 2 );
 
--- CRIS/ temporarily create table table with fields of country codes and user names
+-- CRIS/ temporarily create table table with fields of country codes and user names --
 SELECT *
 FROM visited_countries
 JOIN users

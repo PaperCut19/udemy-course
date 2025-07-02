@@ -39,7 +39,7 @@
         placeholder=" <%= locals.error ? error : 'Enter country name' %> "
       />
 
-      <!-- CRIS/ this is the submit button -->
+      <!-- CRIS/ submit button -->
       <button type="submit" style="background-color: <%= color %>">Add</button>
     </form>
 
@@ -935,6 +935,10 @@
       </svg>
     </section>
 
+    <!-- CRIS/ counter that shows the total amount of countries visited -->
+    <h2 class="total-count">Total Countries: <%= total %></h2>
+
+    <!-- CRIS/ this takes the array of country codes that we send it and then uses it to change the color of the countries we chose -->
     <script>
       const country_codes = "<%= countries %>".split(",");
       console.log(typeof "<%= countries %>");
