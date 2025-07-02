@@ -94,26 +94,32 @@ JOIN class c ON c.id = e.class_id;
 
 -- EXERCISE SOLUTION AND SETUP --
 
+-- CRIS/ if the tables exist, delete them --
 DROP TABLE IF EXISTS visited_countries, users;
 
+-- CRIS/ create users table, fields of name (UNIQUE and NOT NULL) and color --
 CREATE TABLE users(
 id SERIAL PRIMARY KEY,
 name VARCHAR(15) UNIQUE NOT NULL,
 color VARCHAR(15)
 );
 
+-- CRIS/ create visited_countries table, fields of country_code (NOT NULL) and user_id ( REFERENCES user(id) ) --
 CREATE TABLE visited_countries(
 id SERIAL PRIMARY KEY,
 country_code CHAR(2) NOT NULL,
 user_id INTEGER REFERENCES users(id)
 );
 
+-- CRIS/ add data to users table
 INSERT INTO users (name, color)
 VALUES ('Angela', 'teal'), ('Jack', 'powderblue');
 
+-- CRIS/ add data to visited_countries table
 INSERT INTO visited_countries (country_code, user_id)
 VALUES ('FR', 1), ('GB', 1), ('CA', 2), ('FR', 2 );
 
+-- CRIS/ temporarily create table table with fields of country codes and user names
 SELECT *
 FROM visited_countries
 JOIN users
