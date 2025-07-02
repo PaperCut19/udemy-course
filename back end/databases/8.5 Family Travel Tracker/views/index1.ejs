@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body>
+    <form class="tab-view tab-view-height-auto" action="/user" method="post">
+      <!-- CRIS/ for each user, create a button and label -->
+      <% users.forEach(function (user) { %>
+      <!-- CRIS/ the id is for attaching the correct label to the right user, the value attribute means that when the user clicks the button, the correct user id will be sent to the server -->
+      <input
+        type="submit"
+        value=" <%= user.id %> "
+        name="user"
+        id=" <%= user.id %> "
+      />
+
+      <!-- CRIS/ a label here is created for the correct user and it uses the correct color -->
+      <label for=" <%= user.id %> " style="background-color: <%= user.color %>">
+        <%= user.name %>
+      </label>
+      <% }) %>
+    </form>
+
     <section class="ag-canvas">
       <svg
         class="ag-canvas_svg"
