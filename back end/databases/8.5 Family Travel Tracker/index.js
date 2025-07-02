@@ -103,17 +103,19 @@ app.post("/user", async (req, res) => {
   }
 });
 
+//CRIS/ POST /new
 app.post("/new", async (req, res) => {
-  const name = req.body.name;
-  const color = req.body.color;
+  const name = req.body.name; //CRIS/ we'll get the name that the user typed
+  const color = req.body.color; //CRIS/ we'll get the color that the user picked
 
   const result = await db.query(
-    "INSERT INTO users (name, color) VALUES($1, $2) RETURNING *;",
+    //CRIS/ to the users table, add the name and color that the user chose
+    "INSERT INTO users (name, color) VALUES($1, $2) RETURNING *;", //CRIS/ we use the keyword RETURNING to also return the current row that we just created and added to the table
     [name, color]
   );
 
-  const id = result.rows[0].id;
-  currentUserId = id;
+  const id = result.rows[0].id; //CRIS/ from the result variable, we'll look for the user id
+  currentUserId = id; //CRIS/ we'll make the currentUserId variable equal to the current user id
 
   res.redirect("/");
 });
