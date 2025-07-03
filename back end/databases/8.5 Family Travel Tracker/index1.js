@@ -26,7 +26,7 @@ let users = [
 
 //CRIS/ we use this function to get back the country codes of every country that a user visited
 async function checkVisited() {
-    const result = await db.query("SELECT country_code FROM visited_countries JOIN users ON user_id = users.id WHERE users_id = $1",
+    const result = await db.query("SELECT country_code FROM visited_countries JOIN users ON user_id = users.id WHERE user_id = $1",
         [currentUserId]
     );
 
@@ -47,6 +47,7 @@ async function getCurrentUser() {
     return users.find((user) => user.id == currentUserId);
 }
 
+//CRIS/ GET home page
 app.get("/", async (req, res) => {
     const countries = await checkVisited();
     const currentUser = await getCurrentUser();
@@ -58,6 +59,11 @@ app.get("/", async (req, res) => {
         color: currentUser.color
     });
 });
+
+//CRIS/ POST /user
+app.post("/user", (req, res) => {
+
+})
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
