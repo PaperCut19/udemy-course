@@ -71,6 +71,50 @@ app.post("/user", (req, res) => {
     }
 });
 
+//CRIS/ POST /add
+app.post("/add", async (req, res) => {
+    const input = req.body.country; //CRIS/ get user input
+
+    try {
+        //CRIS/ use the user input to get the country code that matches it close enough
+        const result = await db.query("SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%' ",
+            [input.toLowerCase()]
+        );
+        if (!result.rows[0]) throw new Error("No matching country");
+        const countryCode = result.rows[0].country_code;
+
+        try {
+            //CRIS/ add the country code and user id to the visited_countries table
+            await db.query("INSERT INTO visited_countries (country_code, user_id) VALUES ($1, $2)",
+                [countryCode, currentUserId]
+            );
+            res.redirect("/");
+        } catch (error) {
+            console.log(error);
+            const countries = await checkVisited();
+            const currentUser = await getCurrentUser();
+            res.render("index1.ejs", {
+                countries: countries,
+                total: countries.length,
+                users: users,
+                color: currentUser.color,
+                error: "Try again"
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        const countries = await checkVisited();
+        const currentUser = await getCurrentUser();
+        res.render("index1.ejs", {
+            countries: countries,
+            total: countries.length,
+            users: users,
+            color: currentUser.color,
+            error: "Try again"
+        });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
