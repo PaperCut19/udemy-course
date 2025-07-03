@@ -63,7 +63,13 @@ app.get("/", async (req, res) => {
 //CRIS/ POST /user
 app.post("/user", (req, res) => {
 
-})
+    if (req.body.add == "new") {
+        res.render("new1.ejs");
+    } else {
+        currentUserId = parseInt(req.body.user);
+        res.redirect("/");
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
