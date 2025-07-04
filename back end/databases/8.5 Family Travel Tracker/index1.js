@@ -188,8 +188,8 @@ app.post("/deleteMember", async (req, res) => {
     const input = req.body.name;
 
     try {
-        await db.query("DELETE FROM users WHERE name = $1",
-            [input]
+        await db.query("DELETE FROM users WHERE LOWER(name) = $1",
+            [input.toLowerCase()]
         );
         currentUserId = 1;
         res.redirect("/");
