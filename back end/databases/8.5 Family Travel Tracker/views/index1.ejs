@@ -41,6 +41,20 @@
 
       <!-- CRIS/ submit button -->
       <button type="submit" style="background-color: <%= color %>">Add</button>
+      <button
+        type="submit"
+        style="background-color: <%= color %>"
+        formaction="/delete"
+      >
+        Delete
+      </button>
+      <button
+        type="submit"
+        style="background-color: <%= color %>"
+        formaction="/deleteAll"
+      >
+        Delete All
+      </button>
     </form>
 
     <section class="ag-canvas">

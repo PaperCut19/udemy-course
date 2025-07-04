@@ -130,6 +130,50 @@ app.post("/new", async (req, res) => {
     res.redirect("/");
 })
 
+//CRIS/ POST /delete
+app.post("/delete", async (req, res) => {
+    const input = req.body.country;
+
+    try {
+        const result = await db.query("SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%'",
+            [input.toLowerCase()]
+        );
+
+        if (!result.rows.length) throw new Error("No matching country found");
+        const countryCode = result.rows[0].country_code;
+
+        try {
+            await db.query("DELETE FROM visited_countries WHERE user_id = $1 AND country_code = $2",
+                [currentUserId, countryCode]
+            );
+
+            res.redirect("/");
+        } catch (error) {
+            console.log(error);
+            const countries = await checkVisited();
+            const currentUser = await getCurrentUser();
+            res.render("index1.ejs", {
+                countries: countries,
+                total: countries.length,
+                users: users,
+                color: currentUser.color,
+                error: "Try again"
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        const countries = await checkVisited();
+        const currentUser = await getCurrentUser();
+        res.render("index1.ejs", {
+            countries: countries,
+            total: countries.length,
+            users: users,
+            color: currentUser.color,
+            error: "Try again"
+        });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
