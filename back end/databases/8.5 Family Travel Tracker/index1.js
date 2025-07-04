@@ -174,6 +174,32 @@ app.post("/delete", async (req, res) => {
     }
 });
 
+//CRIS/ POST /deleteAll
+app.post("/deleteAll", async (req, res) => {
+    await db.query("DELETE FROM visited_countries WHERE user_id = $1",
+        [currentUserId]
+    );
+
+    res.redirect("/");
+});
+
+//CRIS/ POST /deleteMember
+app.post("/deleteMember", async (req, res) => {
+    const input = req.body.name;
+
+    try {
+        await db.query("DELETE FROM users WHERE name = $1",
+            [input]
+        );
+        currentUserId = 1;
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        res.render("new1.ejs");
+    };
+
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
